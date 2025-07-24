@@ -1,0 +1,8 @@
+hsv_min: [77, 40, 0]
+hsv_max: [101, 255, 255]
+frame_width: 640
+frame_height: 480
+connection_string: "/dev/ttyACM0"
+default_altitude: 5.0
+target_tolerance: 20
+

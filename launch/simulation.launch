@@ -1,0 +1,23 @@
+<launch>
+  <!-- Gazebo World -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find drone_autonomous)/worlds/drone_world.world"/>
+    <arg name="paused" value="false"/>
+  </include>
+
+  <!-- Spawn Drone -->
+  <include file="$(find ardrone_autonomy)/launch/ardrone.launch">
+    <arg name="drone_ip" value="192.168.1.1"/>
+  </include>
+
+  <!-- Our Nodes -->
+  <node pkg="drone_autonomous" type="camera_processor.py" name="camera_processor" output="screen"/>
+  <node pkg="drone_autonomous" type="object_detector.py" name="object_detector" output="screen"/>
+  <node pkg="drone_autonomous" type="drone_controller.py" name="drone_controller" output="screen">
+    <param name="simulation_mode" value="true"/>
+  </node>
+  <node pkg="drone_autonomous" type="mission_manager.py" name="mission_manager" output="screen"/>
+  
+  <!-- RViz -->
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find drone_autonomous)/config/simulation.rviz"/>
+</launch>
